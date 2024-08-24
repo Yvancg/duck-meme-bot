@@ -1,102 +1,112 @@
 
-```markdown
 # Duck Meme Bot
 
-Duck Meme Bot is an automated Python script that fetches duck-related memes from X.com (formerly Twitter) and posts them to a specified Telegram channel. The bot runs periodically using GitHub Actions, making it a fully automated solution for your meme-sharing needs.
+## Overview
+
+Duck Meme Bot is an automated bot that sources duck memes from X.com (formerly Twitter) using the `#duckmemes` hashtag and posts them to a specified Telegram channel. The bot is scheduled to run hourly using GitHub Actions, ensuring that your Telegram channel is continuously updated with fresh content.
 
 ## Features
 
-- Fetches the latest duck memes from X.com using the `#duckmemes` hashtag.
-- Automatically posts the memes to a specified Telegram channel.
-- Runs periodically every hour using a cron job configured in GitHub Actions.
+- **Automated Meme Sourcing**: Fetches the latest duck memes from X.com.
+- **Telegram Integration**: Posts the memes directly to a Telegram channel.
+- **Cron Job Automation**: Runs automatically every hour using GitHub Actions.
 
-## Requirements
+## Setup Instructions
+
+### Prerequisites
 
 - Python 3.x
-- Virtual environment (`venv`)
-- Tweepy (`tweepy`) - For interacting with the Twitter API
-- Telethon (`telethon`) - For interacting with the Telegram API
-- Requests (`requests`) - For handling HTTP requests
+- A GitHub account
+- A Telegram account with access to the Telegram API
+- A Twitter Developer account with API credentials
 
-## Setup
+### Local Development Setup
 
-### 1. Clone the Repository
+1. **Clone the Repository:**
 
-```bash
-git clone https://github.com/yvancg/duck-meme-bot.git
-cd duck-meme-bot
-```
+   ```bash
+   git clone https://github.com/yvancg/duck-meme-bot.git
+   cd duck-meme-bot
+   ```
 
-### 2. Create and Activate a Virtual Environment
+2. **Create and Activate a Virtual Environment:**
 
-```bash
-python3 -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-```
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   ```
 
-### 3. Install the Required Dependencies
+3. **Install the Required Libraries:**
 
-```bash
-pip install -r requirements.txt
-```
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### 4. Set Up API Keys and Environment Variables
+4. **Configure API Credentials:**
 
-You'll need to set up the following environment variables to store your API keys and other credentials:
+   Update the placeholder values in `duck_meme_bot.py` with your actual API credentials for Twitter and Telegram. You can also set these as environment variables for better security.
 
-- **Twitter API:**
-  - `TWITTER_API_KEY`
-  - `TWITTER_API_SECRET`
-  - `TWITTER_ACCESS_TOKEN`
-  - `TWITTER_ACCESS_TOKEN_SECRET`
+### Running the Script Locally
 
-- **Telegram API:**
-  - `TELEGRAM_API_ID`
-  - `TELEGRAM_API_HASH`
-  - `TELEGRAM_CHANNEL`
-
-You can either export these variables in your shell or create a `.env` file in your project directory.
-
-### 5. Running the Script Locally
-
-To test the bot locally, ensure your virtual environment is active, then run:
+To test the bot locally, activate your virtual environment and run the script:
 
 ```bash
 python duck_meme_bot.py
 ```
 
-### 6. Automating with GitHub Actions
+This will fetch the latest duck memes and post them to your configured Telegram channel.
 
-This project includes a GitHub Actions workflow that automatically runs the bot every hour.
+### GitHub Actions Setup
 
-- The workflow file is located at `.github/workflows/cron-job.yml`.
-- The cron job is scheduled using the following cron expression: `0 * * * *`, meaning it runs at the start of every hour.
+The bot is configured to run automatically every hour using GitHub Actions. The workflow is defined in `.github/workflows/cron-job.yml`.
 
-To enable the GitHub Actions workflow:
+1. **Push the Repository to GitHub:**
 
-1. Push your changes to the `main` branch.
-2. GitHub Actions will automatically trigger the workflow according to the schedule.
+   If not done already, push your local repository to GitHub:
 
-### 7. Monitor the Workflow
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   git push -u origin main
+   ```
 
-You can monitor the workflow runs in the "Actions" tab of your GitHub repository.
+2. **Set Up Secrets on GitHub:**
+
+   Add your Twitter and Telegram API credentials as secrets in your GitHub repository settings:
+
+   - `TWITTER_API_KEY`
+   - `TWITTER_API_SECRET`
+   - `TWITTER_ACCESS_TOKEN`
+   - `TWITTER_ACCESS_TOKEN_SECRET`
+   - `TELEGRAM_API_ID`
+   - `TELEGRAM_API_HASH`
+
+3. **Check the GitHub Actions:**
+
+   Navigate to the "Actions" tab in your GitHub repository to monitor the workflow and ensure that the bot is running as expected.
+
+## Customization
+
+- **Hashtag:** You can change the hashtag used to source memes by editing the `q="#duckmemes -filter:retweets"` line in `duck_meme_bot.py`.
+- **Schedule:** Adjust the cron schedule in `.github/workflows/cron-job.yml` to change how often the bot runs.
 
 ## Contributing
 
-Contributions are welcome! If you have suggestions for improvements, please feel free to fork the repository and submit a pull request.
+Contributions are welcome! Please feel free to submit a Pull Request or open an issue to discuss any improvements.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is open-source and available under the [MIT License](LICENSE).
+
 ```
 
-### Additional Instructions
+### Summary of the README Sections:
 
-1. **Update the Repository URL**: Replace the `git clone` URL with the correct URL for your repository.
-2. **Environment Variables**: The README assumes you're familiar with setting environment variables. If not, you may want to add instructions or examples on how to do this.
-
-### Optional Sections
-You can also add optional sections, such as:
-- **Screenshots**: Include screenshots of the bot in action.
-- **Troubleshooting**: Provide common issues and solutions.
-- **Acknowledgments**: Give credit to any libraries or resources used.
+- **Overview:** A brief description of what the project does.
+- **Features:** Highlights the key functionalities.
+- **Setup Instructions:** Step-by-step guide to setting up the project locally and using GitHub Actions.
+- **Running the Script Locally:** Instructions on how to test the bot.
+- **GitHub Actions Setup:** Details on setting up the cron job using GitHub Actions.
+- **Customization:** Tips on how to modify the bot’s behavior.
+- **Contributing:** Encouragement for community contributions.
+- **License:** Information about the project's license.
