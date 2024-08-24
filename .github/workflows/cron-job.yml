@@ -3,22 +3,26 @@ name: Duck Meme Bot Cron Job
 on:
   schedule:
     # Runs every hour
-    - cron: '0 * * * *' 
+    - cron: '0 * * * *'
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      # Update the checkout action to the latest version
+      - uses: actions/checkout@v3
+      
+      # Update the setup-python action to the latest version
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.x'
+      
       - name: Install dependencies
         run: |
           python -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
+      
       - name: Run script
         run: |
           source venv/bin/activate
