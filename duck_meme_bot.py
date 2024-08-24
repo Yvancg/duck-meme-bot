@@ -1,13 +1,13 @@
 """Module providing a function that fetches duck memes from X and posts them to Telegram."""
 
 import os
+from dotenv import load_dotenv
 from pathlib import Path
 import asyncio
 import tempfile
 import requests
 from telethon import TelegramClient
 from tweepy import OAuthHandler, API, Cursor
-from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
@@ -15,6 +15,11 @@ load_dotenv()
 # Twitter API credentials from environment variables
 consumer_key = os.getenv('TWITTER_API_KEY')
 consumer_secret = os.getenv('TWITTER_API_SECRET')
+
+# Debugging
+print(f"Consumer Key: {consumer_key}")
+print(f"Consumer Secret: {consumer_secret}")
+
 access_token = os.getenv('TWITTER_ACCESS_TOKEN')
 access_token_secret = os.getenv('TWITTER_ACCESS_TOKEN_SECRET')
 
