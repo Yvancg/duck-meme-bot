@@ -1,3 +1,5 @@
+""" Module providing a function that fetches duck memes from X and posts them to Telegram."""
+
 import os
 import requests
 from telethon import TelegramClient
@@ -26,7 +28,9 @@ twitter_api = API(auth)
 # Initialize Telegram Client
 client = TelegramClient('session_name', api_id, api_hash)
 
+
 async def main():
+    """ Main asynchronous function that automates the process """
     # Ensure you're authorized
     await client.start()
 
@@ -39,7 +43,7 @@ async def main():
                 filename = 'duck_meme.jpg'
                 with open(filename, 'wb') as handler:
                     handler.write(image_data)
-                
+              
                 # Send the image to the Telegram channel
                 await client.send_file(telegram_channel, filename, caption=tweet.full_text)
 
