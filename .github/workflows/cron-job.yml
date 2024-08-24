@@ -41,15 +41,6 @@ jobs:
           TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
           TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
           TELEGRAM_CHANNEL: ${{ secrets.TELEGRAM_CHANNEL }}
-
-          - name: Debug Environment Variables
-          run: |
-            echo "TWITTER_API_KEY is set"
-            echo "TELEGRAM_API_ID is set"
-          env:
-            TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
-            TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
-
         run: |
           source venv/bin/activate
           python duck_meme_bot.py
