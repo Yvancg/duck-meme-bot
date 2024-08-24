@@ -2,17 +2,21 @@ import os
 import requests
 from telethon import TelegramClient
 from tweepy import OAuthHandler, API, Cursor
+from dotenv import load_dotenv
 
-# Twitter API credentials
-consumer_key = 'YOUR_TWITTER_API_KEY'
-consumer_secret = 'YOUR_TWITTER_API_SECRET'
-access_token = 'YOUR_TWITTER_ACCESS_TOKEN'
-access_token_secret = 'YOUR_TWITTER_ACCESS_TOKEN_SECRET'
+# Load environment variables from .env file
+load_dotenv()
 
-# Telegram API credentials
-api_id = 'YOUR_TELEGRAM_API_ID'
-api_hash = 'YOUR_TELEGRAM_API_HASH'
-telegram_channel = 'YOUR_TELEGRAM_CHANNEL_USERNAME'
+# Twitter API credentials from environment variables
+consumer_key = os.getenv('TWITTER_API_KEY')
+consumer_secret = os.getenv('TWITTER_API_SECRET')
+access_token = os.getenv('TWITTER_ACCESS_TOKEN')
+access_token_secret = os.getenv('TWITTER_ACCESS_TOKEN_SECRET')
+
+# Telegram API credentials from environment variables
+api_id = os.getenv('TELEGRAM_API_ID')
+api_hash = os.getenv('TELEGRAM_API_HASH')
+telegram_channel = os.getenv('TELEGRAM_CHANNEL')
 
 # Initialize Tweepy
 auth = OAuthHandler(consumer_key, consumer_secret)
