@@ -52,7 +52,6 @@ async def process_tweet(tweet):
 
 async def main():
     """Main asynchronous function that automates the process."""
-    await client.start()
 
     # Pylint: disable=not-an-iterable
     async for tweet in Cursor(twitter_api.search_tweets, q="#duckmemes -filter:retweets", lang="en", tweet_mode="extended").items(5):
