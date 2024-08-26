@@ -18,6 +18,7 @@ access_token_secret = os.environ['TWITTER_ACCESS_TOKEN_SECRET']
 api_id = os.environ['TELEGRAM_API_ID']
 api_hash = os.environ['TELEGRAM_API_HASH']
 telegram_channel = os.environ['TELEGRAM_CHANNEL']
+bot_token = os.environ['TELEGRAM_BOT_TOKEN']
 
 # Initialize Tweepy
 auth = OAuthHandler(consumer_key, consumer_secret)
@@ -25,7 +26,7 @@ auth.set_access_token(access_token, access_token_secret)
 twitter_api = API(auth)
 
 # Initialize Telegram Client
-client = TelegramClient('session_name', api_id, api_hash)
+client = TelegramClient('session_name', api_id, api_hash).start(bot_token=bot_token)
 
 async def download_image(image_url: str, timeout: int = 10) -> Path:
     """Downloads an image from a URL and returns the local file path."""
