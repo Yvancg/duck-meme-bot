@@ -9,15 +9,15 @@ from telethon import TelegramClient
 from tweepy import OAuthHandler, API, Cursor
 
 # Twitter API credentials from environment variables
-consumer_key = os.environ('TWITTER_API_KEY')
-consumer_secret = os.environ('TWITTER_API_SECRET')
-access_token = os.environ('TWITTER_ACCESS_TOKEN')
-access_token_secret = os.environ('TWITTER_ACCESS_TOKEN_SECRET')
+consumer_key = os.environ['TWITTER_API_KEY']
+consumer_secret = os.environ['TWITTER_API_SECRET']
+access_token = os.environ['TWITTER_ACCESS_TOKEN']
+access_token_secret = os.environ['TWITTER_ACCESS_TOKEN_SECRET']
 
 # Telegram API credentials from environment variables
-api_id = os.environ('TELEGRAM_API_ID')
-api_hash = os.environ('TELEGRAM_API_HASH')
-telegram_channel = os.environ('TELEGRAM_CHANNEL')
+api_id = os.environ['TELEGRAM_API_ID']
+api_hash = os.environ['TELEGRAM_API_HASH']
+telegram_channel = os.environ['TELEGRAM_CHANNEL']
 
 # Initialize Tweepy
 auth = OAuthHandler(consumer_key, consumer_secret)
