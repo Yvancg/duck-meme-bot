@@ -18,7 +18,7 @@ access_token_secret = os.environ['TWITTER_ACCESS_TOKEN_SECRET']
 api_id = os.environ['TELEGRAM_API_ID']
 api_hash = os.environ['TELEGRAM_API_HASH']
 telegram_channel = os.environ['TELEGRAM_CHANNEL']
-bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
+bot_token = os.environ['TELEGRAM_BOT_TOKEN']
 
 if bot_token is None:
     raise ValueError("TELEGRAM_BOT_TOKEN environment variable is not set")
