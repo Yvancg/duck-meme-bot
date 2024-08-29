@@ -2,22 +2,20 @@ name: Duck Meme Bot Cron Job
 
 on:
   schedule:
-    # Runs every hour
-    - cron: '0 * * * *'
+    # Runs every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch:  # Allows manual triggering
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
     steps:
-      # Update the checkout action to the latest version
       - uses: actions/checkout@v3
       
-      # Update the setup-python action to the latest version
       - uses: actions/setup-python@v4
         with:
           python-version: '3.x'
       
-      # Cache pip dependencies to speed up the workflow
       - name: Cache pip dependencies
         uses: actions/cache@v3
         with:

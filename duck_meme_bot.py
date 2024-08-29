@@ -1,17 +1,17 @@
 """Module providing a function that fetches duck memes from Twitter and posts them to Telegram."""
 
 import os
+import sys
 from pathlib import Path
 import asyncio
 import tempfile
+import logging
 import requests
 from telethon import TelegramClient
 import tweepy
-import logging
 
 # Set up logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Twitter API credentials from environment variables
 consumer_key = os.environ['TWITTER_API_KEY']
@@ -33,6 +33,9 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 twitter_api = tweepy.API(auth)
 
+# Initialize Telegram Client
+client = TelegramClient('session_name', api_id, api_hash)
+
 def download_image(image_url: str, timeout: int = 10) -> Path:
     """Downloads an image from a URL and returns the local file path."""
     try:
@@ -42,10 +45,10 @@ def download_image(image_url: str, timeout: int = 10) -> Path:
             tmp_file.write(response.content)
             return Path(tmp_file.name)
     except requests.exceptions.RequestException as e:
-        logger.error(f"Failed to download {image_url}: {e}")
+        logging.error(f"Failed to download {image_url}: {e}")
         return None
 
-async def process_tweet(client, tweet):
+async def process_tweet(tweet):
     """Processes a single tweet, downloading images and sending them to Telegram."""
     if hasattr(tweet, 'extended_entities') and 'media' in tweet.extended_entities:
         for media in tweet.extended_entities['media']:
@@ -55,37 +58,37 @@ async def process_tweet(client, tweet):
                 if file_path:
                     try:
                         await client.send_file(telegram_channel, file_path, caption=tweet.full_text)
+                        logging.info(f"Sent image to Telegram: {image_url}")
                     except Exception as e:
-                        logger.error(f"Failed to send file to Telegram: {e}")
+                        logging.error(f"Failed to send image to Telegram: {e}")
                     finally:
                         file_path.unlink()  # Remove the file after sending
 
-async def run_bot():
+async def run():
     """Runs the Telegram client and processes tweets."""
-    client = TelegramClient('session_name', api_id, api_hash)
     try:
-        await client.start(bot_token=bot_token)
-        logger.info("Telegram client started")
+        async with client:
+            await client.start(bot_token=bot_token)
+            logging.info("Started Telegram client")
+            
+            tweets = tweepy.Cursor(twitter_api.search_tweets, q="#duckmemes -filter:retweets", lang="en", tweet_mode="extended").items(5)
+            for tweet in tweets:
+                await process_tweet(tweet)
 
-        tweets = tweepy.Cursor(twitter_api.search_tweets, q="#duckmemes -filter:retweets", lang="en", tweet_mode="extended").items(5)
-        for tweet in tweets:
-            await process_tweet(client, tweet)
-
-        logger.info("Duck memes posted to Telegram channel.")
+            logging.info("Finished processing tweets")
     except Exception as e:
-        logger.error(f"An error occurred: {e}")
-    finally:
-        await client.disconnect()
-        logger.info("Telegram client disconnected")
+        logging.error(f"An error occurred during execution: {e}")
+        raise
 
 def main():
     """Main entry point for running the bot."""
     try:
-        asyncio.run(run_bot())
+        asyncio.run(run())
     except KeyboardInterrupt:
-        logger.info("Bot stopped by user")
+        logging.info("Script interrupted by user")
     except Exception as e:
-        logger.error(f"Unhandled exception: {e}")
+        logging.error(f"An unexpected error occurred: {e}")
+        sys.exit(1)
 
 if __name__ == '__main__':
     main()
