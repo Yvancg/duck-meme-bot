@@ -3,7 +3,7 @@
 
 ## Overview
 
-Duck Meme Bot is an automated bot that sources duck memes from X.com (formerly Twitter) using the `#duckmemes` hashtag and posts them to a specified Telegram channel. The bot is scheduled to run hourly using GitHub Actions, ensuring that your Telegram channel is continuously updated with fresh content.
+Duck Meme Bot is an automated bot that sources duck memes from X.com (formerly Twitter) using the `#duckmemes` hashtag and posts them to a specified Telegram channel. The bot is scheduled to run every 6 hours using GitHub Actions, ensuring that your Telegram channel is continuously updated with fresh content.
 
 ## Features
 
@@ -44,7 +44,7 @@ Duck Meme Bot is an automated bot that sources duck memes from X.com (formerly T
 
 4. **Configure API Credentials:**
 
-   Update the placeholder values in `duck_meme_bot.py` with your actual API credentials for Twitter and Telegram. You can also set these as environment variables for better security.
+   Add your actual API credentials for Twitter and Telegram on Github as environment variables for better security.
 
 ### Running the Script Locally
 
@@ -58,7 +58,7 @@ This will fetch the latest duck memes and post them to your configured Telegram 
 
 ### GitHub Actions Setup
 
-The bot is configured to run automatically every hour using GitHub Actions. The workflow is defined in `.github/workflows/cron-job.yml`.
+The bot is configured to run automatically every 6 hours using GitHub Actions. The workflow is defined in `.github/workflows/cron-job.yml`.
 
 1. **Push the Repository to GitHub:**
 
@@ -80,6 +80,7 @@ The bot is configured to run automatically every hour using GitHub Actions. The 
    - `TWITTER_ACCESS_TOKEN_SECRET`
    - `TELEGRAM_API_ID`
    - `TELEGRAM_API_HASH`
+   - `TELEGRAM_BOT_TOKEN`
 
 3. **Check the GitHub Actions:**
 
