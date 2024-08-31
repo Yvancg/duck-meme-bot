@@ -18,7 +18,12 @@ Duck Meme Bot is an automated bot that sources duck memes from X.com (formerly T
 - Python 3.x
 - A GitHub account
 - A Telegram account with access to the Telegram API
-- A Twitter Developer account with API credentials
+- A Twitter/X Developer account with API credentials
+
+> [!IMPORTANT]  
+> You need at least a paid basic subscription on Twitter/X in
+> order to be able to have access to tweets lookup/search.
+> https://developer.twitter.com/en/portal/products/basic
 
 ### Local Development Setup
 
